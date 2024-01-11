@@ -1,22 +1,43 @@
 import 'package:flutter/material.dart';
+import 'TopicsPage.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: ExplorePage(),
+  ));
+}
 
 class ExplorePage extends StatelessWidget {
-  // List of image URLs and corresponding text
   final List<Map<String, String?>> images = [
     {
       'url':
-          'https://images.unsplash.com/photo-1491895200222-0fc4a4c35e18?q=80&w=3474&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      'text': '',
+          'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'text': 'Mathematics',
     },
     {
       'url':
-          'https://img.freepik.com/free-vector/mathematical-geometric-background-vector-gradient-blue-education-remix_53876-114100.jpg?w=2000&t=st=1704792932~exp=1704793532~hmac=38fe31689952f9d1f8b7a23c88c1e5026e06e37cca2f1c2a1598b259e1e24150',
-      'text': '',
+          'https://images.unsplash.com/photo-1628595351029-c2bf17511435?q=80&w=3432&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'text': 'Chemistry',
     },
     {
       'url':
-          'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fHNjaWVuY2UlMjBhbmQlMjB0ZWNobm9sb2d5fGVufDB8fDB8fHww',
-      'text': 'Computer Science',
+          'https://images.unsplash.com/photo-1416816901131-9e5eab64c1c1?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'text': 'Biology',
+    },
+    {
+      'url':
+          'https://images.unsplash.com/photo-1644325349124-d1756b79dd42?q=80&w=3550&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'text': 'Physics',
+    },
+    {
+      'url':
+          'https://images.unsplash.com/photo-1699891730669-2d15cf3a5979?q=80&w=3432&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'text': 'Geometry',
+    },
+    {
+      'url':
+          'https://images.unsplash.com/photo-1645395759348-a0dd7ccf1602?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'text': 'Electronics',
     },
   ];
 
@@ -47,34 +68,29 @@ class ExplorePage extends StatelessWidget {
         ],
       ),
       backgroundColor: Colors.black12,
-      body: Stack(
+      body: ListView(
         children: [
-          Column(
-            children: [
-              for (var imageData in images)
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: _buildImageWithBorderAndOpacity(
-                    imageData['url']!,
-                    text: imageData['text']?.isNotEmpty ?? false
-                        ? Text(
-                            imageData['text']!,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'PlayfairDisplay',
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          )
-                        : null,
-                    onTap: () {
-                      _navigateToPlaceholder(context);
-                    },
-                  ),
-                ),
-            ],
-          ),
+          for (var imageData in images)
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: _buildImageWithBorderAndOpacity(
+                imageData['url']!,
+                text: imageData['text']?.isNotEmpty ?? false
+                    ? Text(
+                        imageData['text']!,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    : null,
+                onTap: () {
+                  _navigateToPlaceholder(context);
+                },
+              ),
+            ),
         ],
       ),
     );
@@ -83,7 +99,7 @@ class ExplorePage extends StatelessWidget {
   void _navigateToPlaceholder(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const PlaceholderScreen()),
+      MaterialPageRoute(builder: (context) => TopicPage()),
     );
   }
 
@@ -102,11 +118,17 @@ class ExplorePage extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                imageUrl,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: 100,
+              child: ColorFiltered(
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.25),
+                  BlendMode.srcOver,
+                ),
+                child: Image.network(
+                  imageUrl,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 100,
+                ),
               ),
             ),
           ),
@@ -121,26 +143,4 @@ class ExplorePage extends StatelessWidget {
       ],
     );
   }
-}
-
-class PlaceholderScreen extends StatelessWidget {
-  const PlaceholderScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Placeholder Screen'),
-      ),
-      body: Center(
-        child: Text('This is a placeholder screen.'),
-      ),
-    );
-  }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: ExplorePage(),
-  ));
 }
