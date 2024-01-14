@@ -35,6 +35,8 @@ dependencies:
   flutter_tex: ^4.0.6
   carousel_slider: ^4.2.1
   webview_flutter: ^4.4.4
+  water_drop_nav_bar: ^2.2.0+5
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -61,6 +63,13 @@ flutter:
       fonts:
         - asset: assets/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf
         - asset: assets/fonts/PlayfairDisplay-VariableFont_wght.ttf
+  assets:
+    - assets/images/math.jpg
+    - assets/images/chemistry.jpg
+    - assets/images/biology.jpg
+    - assets/images/physics.jpg
+    - assets/images/geometry.jpg
+    - assets/images/electronics.jpg
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

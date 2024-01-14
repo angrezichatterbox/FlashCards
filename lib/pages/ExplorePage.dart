@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'TopicsPage.dart';
+import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -7,36 +8,44 @@ void main() {
   ));
 }
 
-class ExplorePage extends StatelessWidget {
+class ExplorePage extends StatefulWidget {
+  @override
+  _ExplorePageState createState() => _ExplorePageState();
+}
+
+class _ExplorePageState extends State<ExplorePage> {
+  int selectedIndex = 0;
+  late PageController pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    pageController = PageController(initialPage: 0);
+  }
+
   final List<Map<String, String?>> images = [
     {
-      'url':
-          'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'assetPath': 'assets/images/math.jpg',
       'text': 'Mathematics',
     },
     {
-      'url':
-          'https://images.unsplash.com/photo-1628595351029-c2bf17511435?q=80&w=3432&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      'text': 'Chemistry',
-    },
-    {
-      'url':
-          'https://images.unsplash.com/photo-1416816901131-9e5eab64c1c1?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      'text': 'Biology',
-    },
-    {
-      'url':
-          'https://images.unsplash.com/photo-1644325349124-d1756b79dd42?q=80&w=3550&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'assetPath': 'assets/images/physics.jpg',
       'text': 'Physics',
     },
     {
-      'url':
-          'https://images.unsplash.com/photo-1699891730669-2d15cf3a5979?q=80&w=3432&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'assetPath': 'assets/images/chemistry.jpg',
+      'text': 'Chemistry',
+    },
+    {
+      'assetPath': 'assets/images/biology.jpg',
+      'text': 'Biology',
+    },
+    {
+      'assetPath': 'assets/images/geometry.jpg',
       'text': 'Geometry',
     },
     {
-      'url':
-          'https://images.unsplash.com/photo-1645395759348-a0dd7ccf1602?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'assetPath': 'assets/images/electronics.jpg',
       'text': 'Electronics',
     },
   ];
@@ -62,20 +71,56 @@ class ExplorePage extends StatelessWidget {
               color: Colors.white,
             ),
             onPressed: () {
-              // Add your onPressed logic here
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    content: Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Text('Nobody Uses the Menu .... Grow Uppp',
+                          style: TextStyle(color: Colors.black)),
+                    ),
+                  );
+                },
+              );
             },
           )
         ],
       ),
       backgroundColor: Colors.black12,
+      bottomNavigationBar: WaterDropNavBar(
+        backgroundColor: Colors.black,
+        waterDropColor: Colors.white,
+        onItemSelected: (index) {
+          setState(() {
+            selectedIndex = index;
+          });
+
+          if (selectedIndex == 0) {
+            _navigateToExplorePage(context);
+          } else if (selectedIndex == 1) {
+            _navigateToFavoritePage(context);
+          }
+        },
+        selectedIndex: selectedIndex,
+        barItems: [
+          BarItem(
+            filledIcon: Icons.bookmark_rounded,
+            outlinedIcon: Icons.bookmark_border_rounded,
+          ),
+          BarItem(
+            filledIcon: Icons.favorite_rounded,
+            outlinedIcon: Icons.favorite_border_rounded,
+          ),
+        ],
+      ),
       body: ListView(
         children: [
           for (var imageData in images)
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: _buildImageWithBorderAndOpacity(
-                imageData['url']!,
+                imageData['assetPath']!,
                 text: imageData['text']?.isNotEmpty ?? false
                     ? Text(
                         imageData['text']!,
@@ -103,6 +148,20 @@ class ExplorePage extends StatelessWidget {
     );
   }
 
+  void _navigateToExplorePage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ExplorePage()),
+    );
+  }
+
+  void _navigateToFavoritePage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ConstitutionPage()),
+    );
+  }
+
   Widget _buildImageWithBorderAndOpacity(
     String imageUrl, {
     Text? text,
@@ -123,7 +182,7 @@ class ExplorePage extends StatelessWidget {
                   Colors.black.withOpacity(0.25),
                   BlendMode.srcOver,
                 ),
-                child: Image.network(
+                child: Image.asset(
                   imageUrl,
                   fit: BoxFit.cover,
                   width: double.infinity,
@@ -141,6 +200,45 @@ class ExplorePage extends StatelessWidget {
             ),
           ),
       ],
+    );
+  }
+}
+
+class ConstitutionPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Under Construction'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.build,
+              size: 100,
+              color: Colors.orange,
+            ),
+            SizedBox(height: 16),
+            Text(
+              'This page is under construction.',
+              style: TextStyle(fontSize: 18),
+            ),
+            SizedBox(height: 8),
+            Text(
+              'Check back soon for updates!',
+              style: TextStyle(fontSize: 16, color: Colors.grey),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -6,7 +6,9 @@ class TopicPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
+      
       backgroundColor: Colors.black12,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -26,7 +28,7 @@ class TopicPage extends StatelessWidget {
               color: Colors.white,
             ),
             onPressed: () {
-              // Displaying a simple dialog with your text
+            
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
@@ -49,7 +51,6 @@ class TopicPage extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              // Your onTap action
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => MyFlipCard()));
             },
@@ -70,8 +71,9 @@ class TopicPage extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              // Your onTap action
-              print('Container tapped!');
+          
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MyFlipCard()));
             },
             child: Padding(
               padding: EdgeInsets.all(20),
@@ -81,7 +83,28 @@ class TopicPage extends StatelessWidget {
                 color: Colors.white,
                 child: Center(
                   child: Icon(
-                    Icons.functions,
+                    Icons.fiber_manual_record,
+                    size: 100,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+           onTap: () {
+              // Your onTap action
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MyFlipCard()));
+            },
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Container(
+                height: 50,
+                width: 50,
+                color: Colors.white,
+                child: Center(
+                  child: Icon(
+                    Icons.attach_money,
                     size: 100,
                   ),
                 ),
@@ -91,7 +114,8 @@ class TopicPage extends StatelessWidget {
           GestureDetector(
             onTap: () {
               // Your onTap action
-              print('Container tapped!');
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MyFlipCard()));
             },
             child: Padding(
               padding: EdgeInsets.all(20),
@@ -101,7 +125,7 @@ class TopicPage extends StatelessWidget {
                 color: Colors.white,
                 child: Center(
                   child: Icon(
-                    Icons.functions,
+                    Icons.trending_up,
                     size: 100,
                   ),
                 ),
@@ -111,7 +135,8 @@ class TopicPage extends StatelessWidget {
           GestureDetector(
             onTap: () {
               // Your onTap action
-              print('Container tapped!');
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MyFlipCard()));
             },
             child: Padding(
               padding: EdgeInsets.all(20),
@@ -121,35 +146,13 @@ class TopicPage extends StatelessWidget {
                 color: Colors.white,
                 child: Center(
                   child: Icon(
-                    Icons.functions,
+                    Icons.show_chart,
                     size: 100,
                   ),
                 ),
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              // Your onTap action
-              print('Container tapped!');
-            },
-            child: Padding(
-              padding: EdgeInsets.all(20),
-              child: Container(
-                height: 50,
-                width: 50,
-                color: Colors.white,
-                child: Center(
-                  child: Icon(
-                    Icons.functions,
-                    size: 100,
-                  ),
-                ),
-              ),
-            ),
-          ),
-
-          // Add more Padding and Container widgets as needed
         ],
       ),
     );
@@ -182,3 +185,4 @@ class PlaceholderScreen extends StatelessWidget {
     );
   }
 }
+
